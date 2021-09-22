@@ -10,6 +10,8 @@ import { Nav } from "../src/components/ui/Nav";
 import { NavItem } from "../src/components/ui/NavItem";
 import { NavItemLink } from "../src/components/ui/NavItemLink";
 import { MegaList } from "../src/components/ui/MegaList";
+import { Page } from "../src/components/ui/Page";
+
 const Home: NextPage = () => {
   const [megaMenuState, setMegaMenuState] = useState<MenuStateProps>("closed");
   const [subMenuState, setSubMenuState] = useState<MenuStateProps>("closed");
@@ -139,126 +141,135 @@ const Home: NextPage = () => {
   useOutsideAlerter(wrapperRef); // create bindings for closing menu from outside events
 
   return (
-    <Flex>
+    <Flex sx={{
+      flexDirection : 'column',
+      width : '100%',
+      height : 'auto'
+    }}>
       <Head>
         <title>test nav</title>
         <meta name="description" content="testing out an accessible nav" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Flex
-        role="navigation"
-        className="66__root"
-        ref={wrapperRef}
-        sx={{
-          width: "100%",
-        }}
-      >
-        <HamBurger
-          openLabel="Menu"
-          closeLabel="Closed"
-          state={megaMenuState}
-          onClick={(e) => toggleMegaMenu(e, "nav-main")}
-        />
-
-        <Nav
-          id="site-nav"
-          activeState={megaMenuState}
-          ariaLabel="Main Navigation"
+        <Flex
+          role="navigation"
+          className="66__root"
+          ref={wrapperRef}
+          sx={{
+            width: "100%",
+            height : 88,
+            borderBottom : '1px solid grey'
+          }}
         >
-          <MainList id="menubar-main" ariaLabel="Main Menu">
-            <NavItem role="none" id="nav-home">
-              <NavItemLink id="menuitem-home" role="menuitem" href="/">
-                Home
-              </NavItemLink>
-            </NavItem>
+          <HamBurger
+            openLabel="Menu"
+            closeLabel="Closed"
+            state={megaMenuState}
+            onClick={(e) => toggleMegaMenu(e, "nav-main")}
+          />
 
-            {navData.map((topLevelNav) => {
-              return (
-                <NavItem
-                  key={topLevelNav.document.uid}
-                  role="none"
-                  id={`nav-${topLevelNav.document.uid}`}
-                  isChildren
-                >
-                  <NavItemLink
-                    role="menuitem"
-                    id={`menuitem-${topLevelNav.document.uid}`}
-                    href="/?page=mega-menu"
-                    isForward
-                    isActive={
-                      activeMenus.includes(`menu-${topLevelNav.document.uid}`)
-                        ? true
-                        : false
-                    }
-                    onClick={(e) =>
-                      toggleSubMenu(e, `menu-${topLevelNav.document.uid}`)
-                    }
-                    onKeyDown={(e) =>
-                      a11yClick(e) &&
-                      toggleSubMenu(e, `menu-${topLevelNav.document.uid}`)
-                    }
-                    ariaHaspopup
-                    ariaControls={`menu-${topLevelNav.document.uid}`}
-                  >
-                    {topLevelNav.title}
-                  </NavItemLink>
+          <Nav
+            id="site-nav"
+            activeState={megaMenuState}
+            ariaLabel="Main Navigation"
+          >
+            <MainList id="menubar-main" ariaLabel="Main Menu">
+              <NavItem role="none" id="nav-home">
+                <NavItemLink id="menuitem-home" role="menuitem" href="/">
+                  Home
+                </NavItemLink>
+              </NavItem>
 
-                  {/* mega list */}
-                  <MegaList
-                    id={`menu-${topLevelNav.document.uid}`}
-                    activeState={
-                      activeMenus.includes(`menu-${topLevelNav.document.uid}`)
-                        ? "open"
-                        : "closed"
-                    }
+              {navData.map((topLevelNav) => {
+                return (
+                  <NavItem
+                    key={topLevelNav.document.uid}
+                    role="none"
+                    id={`nav-${topLevelNav.document.uid}`}
+                    isChildren
                   >
-                    <NavItem
-                      id={`nav-${topLevelNav.document.uid}-back`}
-                      isHeading={true}
+                    <NavItemLink
+                      role="menuitem"
+                      id={`menuitem-${topLevelNav.document.uid}`}
+                      href="/?page=mega-menu"
+                      isForward
+                      isActive={
+                        activeMenus.includes(`menu-${topLevelNav.document.uid}`)
+                          ? true
+                          : false
+                      }
+                      onClick={(e) =>
+                        toggleSubMenu(e, `menu-${topLevelNav.document.uid}`)
+                      }
+                      onKeyDown={(e) =>
+                        a11yClick(e) &&
+                        toggleSubMenu(e, `menu-${topLevelNav.document.uid}`)
+                      }
+                      ariaHaspopup
+                      ariaControls={`menu-${topLevelNav.document.uid}`}
                     >
-                      <NavItemLink
-                        id={`menuitem-${topLevelNav.document.uid}-back`}
-                        href={`/?page=${topLevelNav.document.uid}`}
-                        onClick={(e) =>
-                          toggleSubMenu(e, `menu-${topLevelNav.document.uid}`)
-                        }
-                        onKeyDown={(e) =>
-                          a11yClick(e) &&
-                          toggleSubMenu(e, `menu-${topLevelNav.document.uid}`)
-                        }
-                        ariaControls={`nav-main-${topLevelNav.document.uid}`}
-                        isBack
+                      {topLevelNav.title}
+                    </NavItemLink>
+
+                    {/* mega list */}
+                    <MegaList
+                      id={`menu-${topLevelNav.document.uid}`}
+                      activeState={
+                        activeMenus.includes(`menu-${topLevelNav.document.uid}`)
+                          ? "open"
+                          : "closed"
+                      }
+                    >
+                      <NavItem
+                        id={`nav-${topLevelNav.document.uid}-back`}
+                        isBack={true}
                       >
-                        Back
-                      </NavItemLink>
-                    </NavItem>
+                        <NavItemLink
+                          id={`menuitem-${topLevelNav.document.uid}-back`}
+                          href={`/?page=${topLevelNav.document.uid}`}
+                          onClick={(e) =>
+                            toggleSubMenu(e, `menu-${topLevelNav.document.uid}`)
+                          }
+                          onKeyDown={(e) =>
+                            a11yClick(e) &&
+                            toggleSubMenu(e, `menu-${topLevelNav.document.uid}`)
+                          }
+                          ariaControls={`nav-main-${topLevelNav.document.uid}`}
+                          isBack
+                        >
+                          Back
+                        </NavItemLink>
+                      </NavItem>
                       {/* child items */}
-                      {topLevelNav.document.data.column_1.map((trayItem,trayItemIndex) => {
-                        return (
-                          <NavItem
-                            key={trayItemIndex}
-                            id={`nav-${topLevelNav.document.uid}-Sub-menu-${trayItemIndex}`}
-                            role="none"
-                          >
-                            <NavItemLink
-                              id={`menuitem-${topLevelNav.document.uid}-Sub-menu-${trayItemIndex}`}
-                              role="menuitem"
-                              href={`/?page=sub-menu-${trayItemIndex}]`}
-                              isHeading
+                      {topLevelNav.document.data.column_1.map(
+                        (trayItem, trayItemIndex) => {
+                          return (
+                            <NavItem
+                              key={trayItemIndex}
+                              id={`nav-${topLevelNav.document.uid}-Sub-menu-${trayItemIndex}`}
+                              role="none"
                             >
-                              {trayItem.label.map(label=>label.text)[0]}
-                            </NavItemLink>
-                          </NavItem>
-                        );
-                      })}
-                  </MegaList>
-                </NavItem>
-              );
-            })}
-          </MainList>
-        </Nav>
-      </Flex>
+                              <NavItemLink
+                                id={`menuitem-${topLevelNav.document.uid}-Sub-menu-${trayItemIndex}`}
+                                role="menuitem"
+                                href={`/?page=sub-menu-${trayItemIndex}]`}
+                              >
+                                {trayItem.label.map((label) => label.text)[0]}
+                              </NavItemLink>
+                            </NavItem>
+                          );
+                        }
+                      )}
+                    </MegaList>
+                  </NavItem>
+                );
+              })}
+            </MainList>
+          </Nav>
+        </Flex>
+
+        <Page menuOpen={megaMenuState}/>
     </Flex>
   );
 };

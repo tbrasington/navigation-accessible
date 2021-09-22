@@ -24,14 +24,14 @@ export const MegaList: FC<Props> = ({
 
   const Styles: ThemeUIStyleObject = {
     position  : 'absolute',
-    zIndex : 2,
-    top :0,
-    left: [activeState ==='closed' ? '-100%' : 0, null,null,0],
+    zIndex : [2,null,null,4],
+    left: 0,
     flexDirection : 'column',
-    justifyContent : 'center',
+    top : 88,
     width : '100%',
     height  : ['100vh', null, null, '4rem'],
-    display  : activeState ==='open' ? 'flex' : 'none'
+    display  : activeState ==='open' ? 'flex' : 'none',
+    bg : 'white'
   };
 
 

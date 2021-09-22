@@ -9,9 +9,7 @@ type Props = {
 };
 
 const Styles: ThemeUIStyleObject = {
-  position : 'absolute',
-  top:0,
-  left: 0,
+ 
   flexDirection : ['column',null,null,'row'],
   justifyContent: 'flex-start',
   alignContent : 'center',
@@ -19,7 +17,11 @@ const Styles: ThemeUIStyleObject = {
   p : 16,
   width : '100%', 
   height :[ 'calc(100vh - 4rem)',null,null,'4rem'],
-  zIndex: 1
+  zIndex: 1, 
+  listStyle : 'none',
+  '& > li + li' : {
+    ml: 16
+  }
 };
 
 export const MainList: FC<Props> = ({

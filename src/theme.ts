@@ -12,4 +12,22 @@ export const theme: Theme = {
     primary: "#33e",
   },
   breakpoints: ["30em", "40em", "54em", "90em", "125em"],
+  styles: {
+    root: {
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body",
+    },
+    p: {
+      fontSize: [2, 3],
+    },
+    h1: {
+      variant: "text.heading",
+      fontSize: [5, 6, 7],
+    },
+    h2: {
+      variant: "text.heading",
+      fontSize: [4, 5],
+    },
+  },
 };

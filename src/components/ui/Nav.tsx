@@ -3,6 +3,7 @@
 import { FC } from "react";
 import { classNames } from "../../utils/css";
 import { Flex, ThemeUIStyleObject } from "theme-ui";
+import { motion } from "framer-motion";
 
 type Props = {
   className?: string;
@@ -15,19 +16,20 @@ type Props = {
 export const Nav: FC<Props> = ({ className, children,ariaLabel,activeState,id }) => {
   const rootClasses = classNames("66__nav", className ? className : "");
   const Styles: ThemeUIStyleObject = {
-    position : 'absolute',
-    top: '8rem',
-    left:  [activeState ==='closed' ? '-100%' : 0, null,null,0],
+    display : 'flex',
     width : '100%',
     height  :[ '100vh', null,null,'4rem'],
     flexDirection  : ['column',null,null,'row'],
     p : 16,
-    overflowY : ['scroll', null,null,'visible']
+    overflowY : ['scroll', null,null,'visible'],
+    position  :['absolute',null,null,'revert'],
+    top : 88, 
+    zIndex : [2,null,null,4],
   };
 
   return (
-    <Flex as="nav" id={id} className={rootClasses} aria-label={ariaLabel} sx={Styles}>
+    <motion.nav layout id={id} className={rootClasses} aria-label={ariaLabel} sx={Styles}>
       {children}
-    </Flex>
+    </motion.nav>
   );
 };
