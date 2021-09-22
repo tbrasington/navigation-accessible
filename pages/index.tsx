@@ -1,7 +1,9 @@
+/** @jsxImportSource theme-ui */
+
 import type { NextPage } from "next";
 import Head from "next/head";
-import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
-import { Flex } from "theme-ui";
+import  { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { Box, Flex } from "theme-ui";
 import { MenuStateMachine, MenuStateProps } from "../src/state-machine/menu";
 import { HamBurger } from "../src/components/ui/HamBurger";
 import { navData } from "./api/nav";
@@ -151,12 +153,17 @@ const Home: NextPage = () => {
           borderBottom: "1px solid grey",
         }}
       >
+
+        <Box sx={{
+          display: ['block',null,null,'none']
+        }}>
         <HamBurger
           openLabel="Menu"
           closeLabel="Closed"
           state={megaMenuState}
           onClick={(e) => toggleMegaMenu(e, "nav-main")}
         />
+        </Box>
 
         <Nav
           id="site-nav"

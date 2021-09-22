@@ -33,7 +33,7 @@ export const NavItem: FC<Props> = ({
 
 
   const Styles: ThemeUIStyleObject = {
-    display : ['block',null,null,isBack ? 'none' : 'block']
+    display : ['inline-block',null,null,isBack ? 'none' : 'inline-block']
   };
 
   return (

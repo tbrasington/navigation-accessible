@@ -68,7 +68,7 @@ export const NavItemLink: FC<Props> = ({
   }
 
   return (
-    <motion.div animate={menuOpenAnimation} variants={variants}>
+    <motion.div animate={menuOpenAnimation} variants={variants} style={{width : 'auto', display : 'inline-block'}}>
       <Link href={href} passHref>
         <a
           sx={Styles}

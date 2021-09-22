@@ -2,18 +2,13 @@
 
 import { FC } from "react";
 import { classNames } from "../../utils/css";
-import { Flex, ThemeUIStyleObject } from "theme-ui";
+import { ThemeUIStyleObject } from "theme-ui";
 import { motion } from "framer-motion";
+import { useIsDesktop } from "../../utils/responsiveMotion";
 
 type Props = {
   id: string;
   activeState: "open" | "closed";
-};
-
-const variants = {
-  closed: { opacity: 1, x: 66 },
-  open: { opacity: 1, x: 0 },
-  openingSubMenu: { opacity: 0, x: -66 },
 };
 
 export const MegaList: FC<Props> = ({ activeState, id, children }) => {
@@ -21,6 +16,18 @@ export const MegaList: FC<Props> = ({ activeState, id, children }) => {
     "66__mega-list",
     activeState && `66__mega-list--${activeState}`
   );
+  const isDesktop = useIsDesktop();
+  const variants = isDesktop
+    ? {
+        closed: { opacity: 1, x: 0 },
+        open: { opacity: 1, x: 0 },
+        openingSubMenu: { opacity: 0, x: 0 },
+      }
+    : {
+        closed: { opacity: 1, x: 66 },
+        open: { opacity: 1, x: 0 },
+        openingSubMenu: { opacity: 0, x: -66 },
+      };
 
   const Styles: ThemeUIStyleObject = {
     position: "absolute",

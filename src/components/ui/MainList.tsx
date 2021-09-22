@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FC } from "react";
 import { ThemeUIStyleObject } from "theme-ui";
 import { MenuStateProps } from "../../state-machine/menu";
+import { useIsDesktop } from "../../utils/responsiveMotion";
 
 type Props = {
   id?: string;
@@ -13,6 +14,7 @@ type Props = {
 };
 
 const Styles: ThemeUIStyleObject = {
+  display : 'flex',
   flexDirection: ["column", null, null, "row"],
   justifyContent: "flex-start",
   alignContent: "center",
@@ -23,13 +25,8 @@ const Styles: ThemeUIStyleObject = {
   zIndex: 1,
   listStyle: "none",
   "& > li + li": {
-    ml: 16,
+    ml: [0,null,null,16],
   },
-};
-
-const variants = {
-  closed: { opacity: 0, x: -66 },
-  open: { opacity: 1, x: 0 },
 };
 
 export const MainList: FC<Props> = ({
@@ -39,6 +36,13 @@ export const MainList: FC<Props> = ({
   subNavOpen,
   children,
 }) => {
+  const isDesktop = useIsDesktop();
+  const variants = isDesktop
+    ? { closed: { opacity: 1, x: 0 }, open: { opacity: 1, x: 0 } }
+    : {
+        closed: { opacity: 0, x: -66 },
+        open: { opacity: 1, x: 0 },
+      };
 
   return (
     <motion.ul
