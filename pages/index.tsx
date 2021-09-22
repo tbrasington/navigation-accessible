@@ -2,7 +2,7 @@
 
 import type { NextPage } from "next";
 import Head from "next/head";
-import  { KeyboardEvent, useEffect, useRef, useState } from "react";
+import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { Box, Flex } from "theme-ui";
 import { MenuStateMachine, MenuStateProps } from "../src/state-machine/menu";
 import { HamBurger } from "../src/components/ui/HamBurger";
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
   const useOutsideAlerter = (ref: any) => {
     useEffect(() => {
       // Reset menu if clicked on outside of element
-      const handleClickOutside = (e: MouseEvent | Event) => {
+      const handleClickOutside = (e: React.MouseEvent | Event) => {
         if (ref.current && !ref.current.contains(e.target)) {
           resetMenus();
         }
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const toggleMegaMenu = (e: MouseEvent, menuId: string) => {
+  const toggleMegaMenu = (e: React.MouseEvent, menuId: string) : void=> {
     e.preventDefault();
 
     const nextState = MenuStateMachine(megaMenuState);
@@ -73,7 +73,7 @@ const Home: NextPage = () => {
     }
   };
 
-  const toggleSubMenu = (e: MouseEvent, menuId: string) => {
+  const toggleSubMenu = (e: React.MouseEvent | React.KeyboardEvent, menuId: string) : void=> {
     e.preventDefault();
 
     const nextState = MenuStateMachine(subMenuState);
@@ -106,23 +106,26 @@ const Home: NextPage = () => {
     }
   }, [activeMenus, isMobile]);
 
-  const doEscape = (e) => {
-    if (e.keyCode === 27) {
-      resetMenus();
-    }
-  };
-
   const a11yClick = (e: KeyboardEvent) => {
-    const code = e.charCode || e.keyCode;
-    if (code === 32 || code === 13) {
+    const code = e.code;
+    console.log(e)
+    if (code === "Enter" || code === "Space") {
       return true;
     }
   };
 
+  const doEscape = (e: KeyboardEvent): void => {
+    if (e.code === "Escape") {
+      resetMenus();
+    }
+  };
+
   useEffect(() => {
+    //@ts-ignore
     document.addEventListener("keydown", doEscape, false);
 
     return () => {
+        //@ts-ignore
       document.removeEventListener("keydown", doEscape, false);
     };
   });
@@ -153,16 +156,17 @@ const Home: NextPage = () => {
           borderBottom: "1px solid grey",
         }}
       >
-
-        <Box sx={{
-          display: ['block',null,null,'none']
-        }}>
-        <HamBurger
-          openLabel="Menu"
-          closeLabel="Closed"
-          state={megaMenuState}
-          onClick={(e) => toggleMegaMenu(e, "nav-main")}
-        />
+        <Box
+          sx={{
+            display: ["block", null, null, "none"],
+          }}
+        >
+          <HamBurger
+            openLabel="Menu"
+            closeLabel="Closed"
+            state={megaMenuState}
+            onClick={(e) => toggleMegaMenu(e, "nav-main")}
+          />
         </Box>
 
         <Nav
