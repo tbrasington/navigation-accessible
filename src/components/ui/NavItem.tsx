@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 
 import { FC } from "react";
-import { classNames } from "../../utils/css";
 import { ThemeUIStyleObject } from "theme-ui";
 
 type Props = {
@@ -23,13 +22,7 @@ export const NavItem: FC<Props> = ({
   isBack = false,
   children,
 }) => {
-  const rootClasses = classNames(
-    "66__main-nav-item",
-    isBack ? "66__main-nav-item--heading" : "",
-    isChildren ? "66__main-nav-item--children" : "",
-    isForward ? "66__main-nav-item--forward" : "",
-    className ? className : ""
-  );
+ 
 
 
   const Styles: ThemeUIStyleObject = {
@@ -37,7 +30,7 @@ export const NavItem: FC<Props> = ({
   };
 
   return (
-    <li id={id} role={role} className={rootClasses} sx={Styles}>
+    <li id={id} role={role}  sx={Styles}>
       {children}
     </li>
   );

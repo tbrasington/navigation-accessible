@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { FC } from "react";
-import { classNames } from "../../utils/css";
-import { Flex, ThemeUIStyleObject } from "theme-ui";
+import { ThemeUIStyleObject } from "theme-ui";
 
 type Props = {
   activeState: "open" | "closed";
@@ -24,13 +23,7 @@ export const NavList: FC<Props> = ({
   isDropDown = false,
   children,
 }) => {
-  const rootClasses = classNames(
-    "rmm__nav-list",
-    `rmm__nav-list--${activeState}`,
-    isSub ? "rmm__nav-list--sub" : "",
-    isSubSub ? "rmm__nav-list--sub-sub" : "",
-    isDropDown ? "rmm__nav-list--dropdown" : ""
-  );
+
   
   const Styles: ThemeUIStyleObject = {};
 
@@ -40,7 +33,6 @@ export const NavList: FC<Props> = ({
       id={id}
       role={role}
       aria-labelledby={ariaLabelledby}
-      className={rootClasses}
       sx={Styles}
     >
       {children}

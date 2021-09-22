@@ -1,8 +1,7 @@
 /** @jsxImportSource theme-ui */
 
 import { FC } from "react";
-import { classNames } from "../../utils/css";
-import { Flex, ThemeUIStyleObject } from "theme-ui";
+import {  ThemeUIStyleObject } from "theme-ui";
 import { motion } from "framer-motion";
 
 type Props = {
@@ -14,7 +13,6 @@ type Props = {
 
 
 export const Nav: FC<Props> = ({ className, children,ariaLabel,activeState,id }) => {
-  const rootClasses = classNames("66__nav", className ? className : "");
   const Styles: ThemeUIStyleObject = {
     display : 'flex',
     width : '100%',
@@ -28,7 +26,7 @@ export const Nav: FC<Props> = ({ className, children,ariaLabel,activeState,id })
   };
 
   return (
-    <motion.nav layout id={id} className={rootClasses} aria-label={ariaLabel} sx={Styles}>
+    <motion.nav layout id={id}  aria-label={ariaLabel} sx={Styles}>
       {children}
     </motion.nav>
   );

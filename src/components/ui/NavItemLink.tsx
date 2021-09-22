@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 
 import { FC } from "react";
-import { classNames } from "../../utils/css";
 import { ThemeUIStyleObject } from "theme-ui";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -48,14 +47,6 @@ export const NavItemLink: FC<Props> = ({
   ariaControls,
   children,
 }) => {
-  const rootClasses = classNames(
-    "66__main-nav-item-link",
-    isBack ? "66__main-nav-item-link--back" : "",
-    isHeading ? "66__main-nav-item-link--heading" : "",
-    isForward ? "66__main-nav-item-link--forward" : "",
-    isActive ? "66__main-nav-item-link--active" : "",
-    className ? className : ""
-  );
   // needs thought on how we handle this "closing" when the sub opens
 
   let menuOpenAnimation = "closed";
@@ -68,14 +59,17 @@ export const NavItemLink: FC<Props> = ({
   }
 
   return (
-    <motion.div animate={menuOpenAnimation} variants={variants} style={{width : 'auto', display : 'inline-block'}}>
+    <motion.div
+      animate={menuOpenAnimation}
+      variants={variants}
+      style={{ width: "auto", display: "inline-block" }}
+    >
       <Link href={href} passHref>
         <a
           sx={Styles}
           id={id}
           role={role}
           href={href}
-          className={rootClasses}
           onClick={onClick}
           onKeyDown={onKeyDown}
           aria-haspopup={ariaHaspopup}

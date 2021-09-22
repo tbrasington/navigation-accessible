@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 
 import { FC } from "react";
-import { classNames } from "../../utils/css";
 import { ThemeUIStyleObject } from "theme-ui";
 import { motion } from "framer-motion";
 import { useIsDesktop } from "../../utils/responsiveMotion";
@@ -12,10 +11,7 @@ type Props = {
 };
 
 export const MegaList: FC<Props> = ({ activeState, id, children }) => {
-  const rootClasses = classNames(
-    "66__mega-list",
-    activeState && `66__mega-list--${activeState}`
-  );
+ 
   const isDesktop = useIsDesktop();
   const variants = isDesktop
     ? {
@@ -46,7 +42,6 @@ export const MegaList: FC<Props> = ({ activeState, id, children }) => {
       animate={activeState}
       variants={variants}
       role="menu"
-      className={rootClasses}
       id={id}
       aria-labelledby={id}
       sx={Styles}
